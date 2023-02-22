@@ -11,3 +11,103 @@ body {
   color: #212121;
   line-height: 1.5;
 }
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  margin: 20px 100px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 5px;
+  font-size: 26px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  background-color: #fafafa
+}
+
+
+.button {
+  box-shadow: inset 0px 0px 13px 0px #91b8b3;
+  background: linear-gradient(to bottom, #768d87 5%, #9cabab 100%);
+  background-color: #768d87;
+  border-radius: 5px;
+  border: 1px solid #566963;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 26px;
+  font-weight: bold;
+  padding: 6px 27px;
+  text-decoration: none;
+  text-shadow: 0px 0px 0px #2b665e;
+
+
+}
+
+@media screen and (max-width: 690px) {
+  .button {
+    margin-top: 10px;
+  }
+}
+
+.button:hover {
+  background: linear-gradient(to bottom, #9cabab 5%, #768d87 100%);
+  background-color: #9cabab;
+}
+
+.button:active {
+  position: relative;
+  left: 1px;
+}
+
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: -10px;
+
+}
+
+.photo-card {
+  margin: 10px;
+  box-shadow: 0px 2px 11px -2px rgba(0, 0, 0, 0.75);
+}
+
+.card-img {
+  width: 350;
+  height: 200px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+.load-more {
+  display: none;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.is-active {
+  display: block;
+
+}
