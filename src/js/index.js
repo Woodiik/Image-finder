@@ -25,7 +25,7 @@ async function onSubmit(e) {
   }
   page = 1;
   try {
-    const { hits } = await fetchCards();
+    const { hits, totalHits } = await fetchCards();
     if (hits.length === 0) {
       Notify.info(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -43,7 +43,11 @@ async function onSubmit(e) {
         `We load ${refs.gallery.childElementCount} photos. If u want more - press "Load more" under the gallary`
       );
     }
-    refs.loadMoreBtn.classList.add('is-active');
+    if (refs.gallery.childElementCount === totalHits) {
+      refs.loadMoreBtn.classList.remove('is-active');
+    } else {
+      refs.loadMoreBtn.classList.add('is-active');
+    }
   } catch (error) {
     Notify.failure(`Something was wrong, try again ||     ${error.message}`);
   }
@@ -51,18 +55,23 @@ async function onSubmit(e) {
 async function onClick() {
   page += 1;
   try {
-    const { hits } = await fetchCards();
+    const { hits, totalHits } = await fetchCards();
     mapArrayAndRenderCards(hits);
     gallery.refresh();
-    console.log(refs.gallery.childElementCount);
-    if (refs.gallery.childElementCount >= 500) {
+
+    if (refs.gallery.childElementCount === totalHits && hits.length === 0) {
       Notify.info("We're sorry, but you've reached the end of search results.");
     } else {
       Notify.success(
         `"Hooray! We found ${refs.gallery.childElementCount} images."`
       );
     }
-    refs.loadMoreBtn.classList.add('is-active');
+    if (refs.gallery.childElementCount !== totalHits) {
+      refs.loadMoreBtn.classList.add('is-active');
+    } else {
+      refs.loadMoreBtn.classList.remove('is-active');
+      Notify.info("We're sorry, but you've reached the end of search results.");
+    }
   } catch (error) {
     Notify.failure(`Something was wrong, try again ||     ${error.message}`);
   }
@@ -71,7 +80,7 @@ async function fetchCards() {
   const API_KEY = '33842320-ed19ffa83cc28946150fb442a';
   const BASE_URL = 'https://pixabay.com/api/';
   const response = await fetch(
-    `${BASE_URL}?key=${API_KEY}&q=${refs.searchInput.value}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`
+    `${BASE_URL}?key=${API_KEY}&q=${refs.searchInput.value.trim()}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`
   );
   return await response.json();
 }

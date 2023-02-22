@@ -10,6 +10,8 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  overflow: scroll;
+  height: 100vh;
 }
 
 .wrapper {
